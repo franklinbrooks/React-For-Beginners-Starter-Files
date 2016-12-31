@@ -3,7 +3,10 @@ import {formatPrice} from '../helpers';
 
 class Fish extends React.Component {
   render() {
-    const {details} = this.props; // data massage to use ES6
+    const {details, index} = this.props; // data massage to use ES6
+    const isAvailable = details.status === 'available';
+    const buttonText = isAvailable ? 'Add to order' : 'Sold out!';
+
     return (
       <li className='menu-fish'>
       <img src={details.image} alt={details.name} />
@@ -17,7 +20,7 @@ class Fish extends React.Component {
       <p>
         {details.desc}
       </p>
-      <button>Add to order</button>
+      <button disabled={!isAvailable} onClick={() => this.props.addToOrder(index)} >{buttonText}</button>
       </li>
     )
   }
